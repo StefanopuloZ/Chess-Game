@@ -28,7 +28,7 @@ const pieces = {
     },
     table = fenToPosition("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"),
     // table = fenToPosition('4k2p/8/8/8/4Q3/8/3R4/8'),
-    // table = fenToPosition('4k3/8/3q4/8/8/8/8/R3K2R'),
+    // table = fenToPosition('4k3/8/3p4/8/8/8/8/R3K2R'),
     selected = {
         from: -1,
         to: -1

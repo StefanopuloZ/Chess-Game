@@ -33,7 +33,7 @@ function moveFlow(event) {
         id = cell.id.slice(5);
     if (table[id].color !== playerColor &&
         selectedPiece === "" && Object.keys(table[id]).length > 0) {
-        alert("Invalid piece selected");
+        alert(`It's ${playerColor}'s turn!`);
         return false;
     };
     if (selectedPiece === "") {
@@ -351,14 +351,34 @@ function checkPromotion(start, end) {
     if (table[start].color === "white" && a[1] === 0) {
         table[end] = {
             color: "white",
-            piece: "queen"
+            piece: choosePromotion()
         };
     } else if (a[1] === 7) {
         table[end] = {
             color: "black",
-            piece: "queen"
+            piece: choosePromotion()
         };
     };
+};
+
+function choosePromotion() {
+    let pieces = { q: "queen", r: "rook", b: "bishop", k: "knight" };
+    let piece;
+    for (let i = 0; i < 1; i--) {
+        piece = prompt(
+            `Choose promotion figure:
+
+            q - queen
+            r - rook
+            b - bishop
+            k - knight`);
+
+        if (!pieces[piece]) {
+            alert('You need to select one of the figures above by entering valid letter.');
+        } else break;
+    };
+
+    return pieces[piece];
 };
 
 
