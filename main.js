@@ -31,18 +31,22 @@ document.getElementById("table-area").addEventListener("click", moveFlow);
 function moveFlow(event) {
     const cell = event.target.tagName !== "TD" ? event.target.parentNode : event.target,
         id = cell.id.slice(5);
+
     if (table[id].color !== playerColor &&
         selectedPiece === "" && Object.keys(table[id]).length > 0) {
         alert(`It's ${playerColor}'s turn!`);
         return false;
     };
+
     if (selectedPiece === "") {
         if (!table[id].color) {
             return false;
         };
         selectedPiece = id;
+        
     } else {
         plannedMove = id;
+
         if (validMove(selectedPiece, plannedMove)) {
             table[plannedMove] = table[selectedPiece];
             checkPromotion(selectedPiece, plannedMove);
@@ -55,13 +59,15 @@ function moveFlow(event) {
                 alert("Checkmate!");
             } else if (check(plannedMove, plannedMove, true)) {
                 alert("Check!");
-            }
+            };
         } else {
             selectedPiece = "";
             validMoves = [];
         };
     };
+
     drawBoard();
+
     if (selectedPiece !== "") {
         document.getElementById("cell-" + id).classList.add("active");
         validMoves.push(...showValidMoves(id));
@@ -219,6 +225,7 @@ function pawnMoves(idS) {
 function checkMate() {
     const validMoves = [];
     let pieceMoves = [];
+
     table.forEach((cell, id) => {
         if (cell.color === playerColor) {
             pieceMoves = showValidMoves(id);
@@ -226,6 +233,7 @@ function checkMate() {
             validMoves.push(...pieceMoves);
         };
     });
+    
     return validMoves.length === 0;
 };
 
@@ -243,25 +251,32 @@ function checkFigures(moves, color) {
 function check(start, end, justCheck) {
     const before = table[start],
         after = table[end];
+
     let checkingFigures = [],
         color = before.color;
+
     if (justCheck) {
         color = color === "white" ? "black" : "white";
     };
+
     table[end] = before;
     table[start] = {};
+
     table.forEach((cell, id) => {
         if (Object.keys(cell).length > 0 && cell.color !== color) {
             checkingFigures.push(...showValidMoves(id));
         };
     });
+
     checkingFigures = checkFigures(checkingFigures, color);
     table[end] = after;
     table[start] = before;
+
     if (checkingFigures.length > 0) {
         checkingFigures = [];
         return true;
     };
+
     return false;
 };
 

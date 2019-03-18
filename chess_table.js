@@ -57,8 +57,8 @@ function fenToPosition(fen) {
             for (let p in pairs) {
                 if (fen[i].toLowerCase() === p) {
                     piece = fen[i].replace(fen[i], pairs[p]);
-                }
-            }
+                };
+            };
             arr.push({
                 color,
                 piece
