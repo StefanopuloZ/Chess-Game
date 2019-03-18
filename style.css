@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box
+}
+body {
+    -moz-user-select: none;
+    user-select: none;
+}
+#table-area {
+    width: 640px;
+    margin: auto;
+    margin-top: 50px;
+    border: 1px solid black;
+}
+table {
+    border-collapse: collapse;
+}
+tr {
+    display: flex;
+}
+td {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    font-size: 70px;
+}
+.cell-number, .cell-cooridantes {
+    position: absolute;
+    font-size: 12px;
+}
+.cell-number {
+    top: 0;
+    left: 0;
+    color: brown;
+}
+.cell-cooridantes {
+    top: 63px;
+    left: 63px;
+    color: green;
+}
+.active {
+    background-color: rgb(255, 160, 176) !important;
+}
+.avilable-moves {
+    background-color: rgb(255, 201, 210) !important;
+}
+#table-area tr:nth-of-type(odd) td:nth-of-type(odd) {
+    background-color: rgb(230, 230, 230);
+}
+#table-area tr:nth-of-type(even) td:nth-of-type(even) {
+    background-color: rgb(230, 230, 230);
+}
+
