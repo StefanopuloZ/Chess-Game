@@ -108,7 +108,7 @@ justCheck - is boolean telling function weather it is validating if check has oc
 
 Method checks all figures of specified color and checks to see if in any of their valid moves there is a king of opposing color. If it is, that will be kept in checkingFigures array. If it is empty, there is no check, if it is not, check has occured. 
 
-Checkmate method functions similar. If there is a check king piece is checked to see if there are any valid moves for it. If there are not this still does not mean it is checkmate as another figure can block check or eat checking figure. Program is then performing all valid moves by all other figures to see if after any of them there is no check. If there is not, then it is checkmate.
+**Checkmate method** functions similar. If there is a check king piece is checked to see if there are any valid moves for it. If there are not this still does not mean it is checkmate as another figure can block check or eat checking figure. Program is then performing all valid moves by all other figures to see if after any of them there is no check. If there is not, then it is checkmate.
 
 # Tehnologies
 
