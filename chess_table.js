@@ -63,7 +63,7 @@ function fenToPosition(fen) {
                 color,
                 piece
             });
-        }
-    }
+        };
+    };
     return arr;
-}
+};

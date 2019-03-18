@@ -33,13 +33,13 @@ function moveFlow(event) {
         id = cell.id.slice(5);
     if (table[id].color !== playerColor &&
         selectedPiece === "" && Object.keys(table[id]).length > 0) {
-        console.log("Invalid piece selected");
+        alert("Invalid piece selected");
         return false;
-    }
+    };
     if (selectedPiece === "") {
         if (!table[id].color) {
             return false;
-        }
+        };
         selectedPiece = id;
     } else {
         plannedMove = id;
@@ -54,20 +54,20 @@ function moveFlow(event) {
             if (checkMate()) {
                 alert("Checkmate!");
             } else if (check(plannedMove, plannedMove, true)) {
-                console.log("Check!");
+                alert("Check!");
             }
         } else {
             selectedPiece = "";
             validMoves = [];
-        }
-    }
+        };
+    };
     drawBoard();
     if (selectedPiece !== "") {
         document.getElementById("cell-" + id).classList.add("active");
         validMoves.push(...showValidMoves(id));
         drawMoves(validMoves);
-    }
-}
+    };
+};
 
 /////// End of main function ////
 
@@ -78,21 +78,21 @@ function showValidMoves(id) {
     else if (table[id].piece === "bishop") return bishopMoves(id);
     else if (table[id].piece === "knight") return knightMoves(id);
     else if (table[id].piece === "pawn") return pawnMoves(id);
-}
+};
 
 function validMove(start, end) {
     if (validMoves.indexOf(parseInt(end, 10)) === -1) {
         return false;
     } else if (!checkCastle(start, end)) {
-        console.log("Can't castle. Figures are not free to move.");
+        alert("Can't castle. Figures are not free to move.");
         return false;
     } else if (check(start, end, false)) {
-        console.log("Must prevent check!");
+        alert("Must prevent check!");
         return false;
-    }
+    };
     checkAmpasant(start, end);
     return true;
-}
+};
 
 /////////////// figure rules ///////////////
 
@@ -113,10 +113,10 @@ function rookMoves(idS) {
             moves.push(id + j * directions[i][1]);
             if (table[id + j * directions[i][1]].color === opponentColor) break;
             if (table[id].piece === "king") break;
-        }
-    }
+        };
+    };
     return moves;
-}
+};
 
 // King
 
@@ -129,26 +129,26 @@ function kingMoves(idS) {
     if (table[id].color === "white" && castlingTrack[0].king) {
         if (castlingTrack[0].left && checkEmpty(57, 59)) {
             moves.push(58);
-        }
+        };
         if (castlingTrack[0].right && checkEmpty(61, 62)) {
             moves.push(62);
-        }
+        };
     } else if (table[id].color === "black" && castlingTrack[1].king) {
         if (castlingTrack[1].left && checkEmpty(1, 3)) {
             moves.push(2);
         }
         if (castlingTrack[1].right && checkEmpty(5, 6)) {
             moves.push(6);
-        }
-    }
+        };
+    };
     return moves;
-}
+};
 
 // Queen
 
 function queenMoves(id) {
     return rookMoves(id).concat(bishopMoves(id));
-}
+};
 
 // Bishop
 
@@ -167,10 +167,10 @@ function bishopMoves(idS) {
             moves.push(id + j * directions[i]);
             if (table[id + j * directions[i]].color === opponentColor) break;
             if (table[id].piece === "king") break;
-        }
-    }
+        };
+    };
     return moves;
-}
+};
 
 // Knight
 
@@ -184,9 +184,9 @@ function knightMoves(idS) {
         if (table[id + directions[i]].color === color) continue;
         if (!validJump(id, id + directions[i])) continue;
         moves.push(id + directions[i]);
-    }
+    };
     return moves;
-}
+};
 
 // Pawn
 
@@ -207,12 +207,12 @@ function pawnMoves(idS) {
             if (table[id + directions[side][i]].color !== opponentColor &&
                 id + directions[side][i] !== ampasant) continue;
             if (!validDiagnoal(id, id + directions[side][i])) continue;
-        }
+        };
         moves.push(id + directions[side][i]);
         if (!firstPawnMove(id, color) && i > 1) break;
-    }
+    };
     return moves;
-}
+};
 
 // Other functions
 
@@ -224,21 +224,21 @@ function checkMate() {
             pieceMoves = showValidMoves(id);
             pieceMoves = pieceMoves.filter((element) => !check(id, element, false));
             validMoves.push(...pieceMoves);
-        }
+        };
     });
     return validMoves.length === 0;
-}
+};
 
 function drawMoves(moves) {
     moves.map((element) => {
         document.getElementById(`cell-${element}`).classList.add("avilable-moves");
     });
-}
+};
 
 function checkFigures(moves, color) {
     return moves.filter((element) => table[element].piece === "king" &&
         table[element].color === color);
-}
+};
 
 function check(start, end, justCheck) {
     const before = table[start],
@@ -247,13 +247,13 @@ function check(start, end, justCheck) {
         color = before.color;
     if (justCheck) {
         color = color === "white" ? "black" : "white";
-    }
+    };
     table[end] = before;
     table[start] = {};
     table.forEach((cell, id) => {
         if (Object.keys(cell).length > 0 && cell.color !== color) {
             checkingFigures.push(...showValidMoves(id));
-        }
+        };
     });
     checkingFigures = checkFigures(checkingFigures, color);
     table[end] = after;
@@ -261,26 +261,26 @@ function check(start, end, justCheck) {
     if (checkingFigures.length > 0) {
         checkingFigures = [];
         return true;
-    }
+    };
     return false;
-}
+};
 
 function convertCell(id) {
     return [id % 8, Math.floor(id / 8)]
-}
+};
 
 function isAttacked(arr, id) {
     for (let i = 0; i < arr.length; i++) {
         if (check(id, arr[i], false)) return true;
-    }
+    };
     return false;
-}
+};
 
 function updateCastling(startS) {
     const start = parseInt(startS, 10);
     if (table[start].piece !== "rook" && table[start].piece !== "king") {
         return false;
-    }
+    };
     if (table[start].color === "white") {
         if (start === 56) castlingTrack[0].left = false;
         if (start === 63) castlingTrack[0].right = false;
@@ -289,8 +289,8 @@ function updateCastling(startS) {
         if (start === 0) castlingTrack[1].left = false;
         if (start === 7) castlingTrack[1].right = false;
         if (start === 4) castlingTrack[1].king = false;
-    }
-}
+    };
+};
 
 function checkCastle(startS, endS) {
     const start = parseInt(startS, 10),
@@ -304,7 +304,7 @@ function checkCastle(startS, endS) {
                 color: "white",
                 piece: "rook"
             };
-        }
+        };
         if (end === 62) {
             if (isAttacked([60, 61, 62, 63], start)) return false;
             table[63] = {};
@@ -312,7 +312,7 @@ function checkCastle(startS, endS) {
                 color: "white",
                 piece: "rook"
             };
-        }
+        };
     } else {
         if (end === 2) {
             if (isAttacked([0, 1, 2, 3, 4], start)) return false;
@@ -321,7 +321,7 @@ function checkCastle(startS, endS) {
                 color: "black",
                 piece: "rook"
             };
-        }
+        };
         if (end === 6) {
             if (isAttacked([4, 5, 6, 7], start)) return false;
             table[7] = {};
@@ -329,25 +329,25 @@ function checkCastle(startS, endS) {
                 color: "black",
                 piece: "rook"
             };
-        }
-    }
+        };
+    };
     return true;
-}
+};
 
 function checkEmpty(start, end) {
     for (let i = start; i <= end; i++) {
         if (Object.keys(table[i]).length !== 0) {
             return false;
-        }
-    }
+        };
+    };
     return true;
-}
+};
 
 function checkPromotion(start, end) {
     const a = convertCell(end);
     if (table[start].piece !== "pawn") {
         return false;
-    }
+    };
     if (table[start].color === "white" && a[1] === 0) {
         table[end] = {
             color: "white",
@@ -358,8 +358,8 @@ function checkPromotion(start, end) {
             color: "black",
             piece: "queen"
         };
-    }
-}
+    };
+};
 
 
 function checkAmpasant(start, endS) {
@@ -369,46 +369,46 @@ function checkAmpasant(start, endS) {
             table[end + 8] = {};
         } else {
             table[end - 8] = {};
-        }
-    }
+        };
+    };
     if (table[start].piece === "pawn" && Math.abs(start - end) > 8) {
         ampasant = setAmpasant(start);
     } else {
         ampasant = null;
-    }
-}
+    };
+};
 
 function setAmpasant(idS) {
     const id = parseInt(idS, 10);
     return table[id].color === "white" ? id - 8 : id + 8;
-}
+};
 
 function firstPawnMove(id, color) {
     const a = convertCell(id);
     if (color === "white") {
         return a[1] === 6;
-    }
+    };
     return a[1] === 1;
-}
+};
 
 function validDiagnoal(start, end) {
     const a = convertCell(start),
         b = convertCell(end);
     return Math.abs(a[0] - b[0]) === Math.abs(a[1] - b[1]);
-}
+};
 
 function validJump(start, end) {
     const a = convertCell(start),
         b = convertCell(end);
     return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) === 3;
-}
+};
 
 function drawBoard() {
     let html = "<table id='chessTable'>";
     for (let i = 0; i < table.length; i++) {
         if (i % 8 === 0) {
             html += "<tr>";
-        }
+        };
         if (Object.keys(table[i]).length > 0) {
             const color = table[i].color,
                 piece = table[i].piece;
@@ -417,11 +417,11 @@ function drawBoard() {
         } else {
             html += `<td id="cell-${i}"><span class="cell-number">${i}</span>
             <span class="cell-cooridantes">${convertCell(i)}</span></td>`;
-        }
+        };
         if (i % 8 === 7) {
             html += "</tr>";
-        }
-    }
+        };
+    };
     html += "</table>";
     document.getElementById("table-area").innerHTML = html;
-}
+};
