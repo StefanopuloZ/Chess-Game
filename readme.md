@@ -1,6 +1,6 @@
 # Chess JS
 
-### Project online using GitHub Pages **[here](https://stefanopuloz.github.io/Chess-JS/)**
+### Project online using GitHub Pages **[here](https://stefanopuloz.github.io/Chess-Game/)**
 
 Chess app built using pure Javascript. It is for two players and it is fully functional. It has:
 
