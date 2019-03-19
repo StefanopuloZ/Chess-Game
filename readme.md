@@ -116,6 +116,4 @@ Method checks all figures of specified color and checks to see if in any of thei
 
 Only thing used here is pure Javascript beside simple HTML and CSS. UI has not been in focus for this project so there is none worth mentioning. Simple alerts and prompts are used where needed. 
 
-Site is hosted using GitHub Pages at https://stefanopuloz.github.io/Chess-JS/
-
 ## Created by Stefan Deak
