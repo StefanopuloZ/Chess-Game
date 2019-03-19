@@ -1,5 +1,7 @@
 # Chess JS
 
+### Project online using GitHub Pages **[here](https://stefanopuloz.github.io/Chess-JS/)**
+
 Chess app built using pure Javascript. It is for two players and it is fully functional. It has:
 
 - All rules for figure movement including En passant and castle.
